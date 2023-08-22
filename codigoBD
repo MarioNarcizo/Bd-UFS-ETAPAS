@@ -1,0 +1,43 @@
+pessoas = [
+    {
+        'cpf': 7015,
+        'nome': 'Sandra',
+        'data nascimento': '11/12/1974'
+    },
+
+    {
+        'cpf': 81554,
+        'nome': 'Mario',
+        'data nascimento': '07/08/2001'
+    },
+
+    {
+        'cpf': 7066,
+        'nome': 'Alanna',
+        'data nascimento': '11/08/2000'
+    }
+]
+
+
+
+from flask import Flask, make_response, jsonify, request
+
+
+
+app = Flask(__name__)
+
+@app.route('/pessoas', methods=['GET'])
+def get_pessoas():
+    return make_response(
+        jsonify(
+            pessoas
+            )
+        )
+
+@app.route('/pessoas', methods=['POST'])
+def insert_pessoa():
+    pessoa = request.get_json()
+    pessoas.append(pessoa)
+    return make_response(jsonify(pessoas))
+    
+app.run()
